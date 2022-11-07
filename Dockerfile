@@ -24,10 +24,11 @@ RUN git config --global user.email ${GITHUB_USER}
 
 RUN git clone https://github.com/rpgoldman/smtrat.git \
  && cd smtrat \
- && git checkout debug-build \
+ && git checkout ${GIT_BRANCH} \
  && mkdir build 
 
-RUN sed -i '16 a GIT_TAG 22.06' smtrat/resources/carl/CMakeLists.txt
+# this is in the code now.
+# RUN sed -i '16 a GIT_TAG 22.06' smtrat/resources/carl/CMakeLists.txt
 
 RUN cd smtrat/build \
  && cmake .. \
