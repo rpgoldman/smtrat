@@ -16,6 +16,7 @@ RUN apt-get update && env DEBIAN_FRONTEND=noninteractive apt-get install -y --no
         libboost-all-dev=1.71.0.0ubuntu2 \
         libgmp-dev=2:6.2.0+dfsg-4ubuntu0.1 \
         libgtest-dev=1.10.0-2 \
+        googletest=1.10.0-2 \
         make=4.2.1-1.2 \
         patch=2.7.6-6 \
  && rm -rf /var/lib/apt/lists/* 
