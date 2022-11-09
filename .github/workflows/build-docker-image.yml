@@ -14,5 +14,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    # - name: retrieve git hash
+    #   run: echo "GITHUB_SHA=`git rev-parse HEAD`" >> $GITHUB_ENV
+    # - name: print info
+    #   env:
+    #     HEAD_REF: ${{ github.head_ref }}
+    #   run: |
+    #     echo "GITHUB_SHA is ${GITHUB_SHA} and git branch is: "
+    #     git branch
+    #     echo "GitHub headref is ${HEAD_REF}."
     - name: Build SMT-RAT Docker image
-      run: docker build --build-arg GITHUB_USER=${GITHUB_ACTOR} --build-arg GIT_BRANCH=${GITHUB_REF} . --file Dockerfile --tag ${GITHUB_ACTOR}/${GITHUB_REF}/smt-rat:$(date +%s)
+      env:
+        HEAD_REF: ${{ github.head_ref }}
+      run: docker build --build-arg GITHUB_USER=${GITHUB_ACTOR} --build-arg GIT_BRANCH=${HEAD_REF} . --file Dockerfile --tag ${GITHUB_ACTOR}/${GITHUB_REF_NAME}/smt-rat:$(date +%s)

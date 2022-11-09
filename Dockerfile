@@ -16,6 +16,7 @@ RUN apt-get update && env DEBIAN_FRONTEND=noninteractive apt-get install -y --no
         libboost-all-dev=1.71.0.0ubuntu2 \
         libgmp-dev=2:6.2.0+dfsg-4ubuntu0.1 \
         libgtest-dev=1.10.0-2 \
+        googletest=1.10.0-2 \
         make=4.2.1-1.2 \
         patch=2.7.6-6 \
  && rm -rf /var/lib/apt/lists/* 
@@ -24,11 +25,16 @@ RUN git config --global user.email ${GITHUB_USER}
 
 RUN git clone https://github.com/rpgoldman/smtrat.git \
  && cd smtrat \
- && git checkout debug-build \
- && mkdir build 
+ && git checkout ${GIT_BRANCH} \
+ && mkdir build && cd ..
 
-RUN sed -i '16 a GIT_TAG 22.06' smtrat/resources/carl/CMakeLists.txt
+RUN git clone https://github.com//rpgoldman/carl.git \
+ && cd carl \
+ && git checkout for-smtrat \
+ && mkdir build \
+ && cd build && cmake .. && make 
 
-RUN cd smtrat/build \
- && cmake .. \
- && make -j $(nproc)
+RUN carl_dir=`readlink -f .` \
+    && cd ../../smtrat/build \
+    && cmake -D carl_DIR=${carl_dir} ..\
+    && make # -j $(nproc)
