@@ -26,11 +26,15 @@ RUN git config --global user.email ${GITHUB_USER}
 RUN git clone https://github.com/rpgoldman/smtrat.git \
  && cd smtrat \
  && git checkout ${GIT_BRANCH} \
- && mkdir build 
+ && mkdir build && cd ..
 
-# this is in the code now.
-# RUN sed -i '16 a GIT_TAG 22.06' smtrat/resources/carl/CMakeLists.txt
+RUN git clone https://github.com//rpgoldman/carl.git \
+ && cd carl \
+ && git checkout for-smtrat \
+ && mkdir build \
+ && cd build && cmake .. && make 
 
-RUN cd smtrat/build \
- && cmake .. \
- && make -j $(nproc)
+RUN carl_dir=`readlink -f .` \
+    && cd ../../smtrat/build \
+    && cmake -D carl_DIR=${carl_dir} ..\
+    && make # -j $(nproc)
