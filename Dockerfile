@@ -31,5 +31,5 @@ RUN git clone https://github.com/rpgoldman/smtrat.git \
 #RUN sed -i '16 a GIT_TAG 22.12' smtrat/resources/carl/CMakeLists.txt
 
 RUN cd smtrat/build \
- && cmake .. \
+ && cmake -DCLI_ENABLE_PREPROCESSOR=ON .. \
  && make -j $(nproc)
