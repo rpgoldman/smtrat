@@ -5,6 +5,7 @@ ARG GITHUB_USER
 ARG GIT_BRANCH
 ENV GITHUB_USER=${GITHUB_USER}
 ENV GIT_BRANCH=${GIT_BRANCH}
+ENV CARL_REQUIRED_VERSION=22.12
 
 RUN echo ${GITHUB_USER}
 
@@ -27,7 +28,7 @@ RUN git clone https://github.com/rpgoldman/smtrat.git \
  && git checkout ${GIT_BRANCH} \
  && mkdir build 
 
-# RUN sed -i '16 a GIT_TAG 22.06' smtrat/resources/carl/CMakeLists.txt
+#RUN sed -i '16 a GIT_TAG 22.12' smtrat/resources/carl/CMakeLists.txt
 
 RUN cd smtrat/build \
  && cmake .. \
