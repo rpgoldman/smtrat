@@ -1,6 +1,5 @@
 #pragma once
 
-#include <carl-arith/ran/thom/ThomRootFinder.h>
 #include <smtrat-common/smtrat-common.h>
 
 #include <optional>
